@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="2"
+    android:orientation="vertical" >
+    
+    <GridLayout
+        android:layout_row="0" 
+        android:rowCount="1"
+        android:columnCount="2"> 
+        
+        <TextView
+            android:id="@+id/eventItemName"
+            android:text=""/>
+        <TextView
+            android:id="@+id/eventItemDate"
+            android:text=""/>
+    </GridLayout>
+    
+    <GridLayout 
+        android:layout_row="1"        
+        android:rowCount="1"
+        android:columnCount="3">
+        
+        <TextView 
+            android:id="@+id/eventItemType"
+            android:layout_column="0"
+            android:text=""/>
+        <TextView
+            android:id="@+id/eventItemNumber"
+            android:layout_column="1"
+            android:text=""/>
+        <RatingBar 
+            android:id="@+id/eventItemRating"
+            android:layout_column="2"            
+            style="?android:attr/ratingBarStyle"           
+            android:numStars="3"/>
+    </GridLayout>
+    
+
+</GridLayout>

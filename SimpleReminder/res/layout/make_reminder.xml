@@ -1,0 +1,261 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:orientation="vertical"
+    android:rowCount="9" >
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_columnSpan="2"
+        android:layout_row="0"
+        android:gravity="bottom"
+        android:hint="@string/reminder" />
+
+    <TextView
+        android:id="@+id/eventType"
+        android:layout_width="200dp"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="1"
+        android:layout_rowSpan="1"
+        android:paddingLeft="10dp"
+        android:textColor="#ff33b5e5"
+        android:text="@string/event_type" />
+
+    <Spinner
+        android:id="@+id/eventTypeSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="1"
+        android:layout_rowSpan="1"
+        android:entries="@array/eventType_array"
+        android:spinnerMode="dialog" />
+    
+    <TextView
+        android:id="@+id/phoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="2"
+        android:layout_rowSpan="1"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ff33b5e5"
+        android:visibility="gone"
+        android:text="@string/number" >
+    </TextView> 
+    
+    <EditText
+        android:id="@+id/enterNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="2"
+        android:layout_rowSpan="1"
+        android:visibility="gone"
+        android:hint="@string/enter_number"/>
+    
+     <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="3"
+        android:layout_rowSpan="1"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:textColor="#ff33b5e5"
+        android:text="@string/message" >
+    </TextView> 
+    
+      <EditText
+        android:id="@+id/enterMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="3"
+        android:layout_rowSpan="1"
+        android:visibility="gone"
+        android:hint="@string/enter_message"/>
+
+    <GridLayout
+        android:id="@+id/gridLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="4"
+        android:layout_rowSpan="1"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:rowCount="2" >
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_columnSpan="1"
+            android:layout_row="0"
+            android:layout_rowSpan="1"
+            android:paddingLeft="10dp"
+            android:textColor="#ff33b5e5"
+            android:text="@string/pic_date" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/lableDate"
+            android:layout_width="280dp"
+            android:layout_height="fill_parent"
+            android:layout_column="0"
+            android:layout_columnSpan="1"
+            android:focusable="false"
+            android:layout_row="1"
+            android:inputType="date"
+            android:layout_rowSpan="1"
+            android:hint="@string/enter_date" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="1"
+            android:layout_row="0"
+            android:layout_rowSpan="1"
+            android:textColor="#ff33b5e5"
+            android:text="@string/pic_time" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/lableTime"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="1"
+            android:layout_row="1"
+            android:focusable="false"
+            android:inputType="time"
+            android:layout_rowSpan="1"
+            android:hint="@string/enter_time" >
+        </EditText>
+    </GridLayout>
+    
+    <TextView
+        android:id="@+id/remindMeIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="5"
+        android:layout_rowSpan="1"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ff33b5e5"
+        android:text="@string/remind_me_in" >
+    </TextView> 
+    
+     <Spinner
+        android:id="@+id/remindMeInSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="5"
+        android:layout_rowSpan="1"
+        android:entries="@array/remind_mein_array"
+        android:spinnerMode="dialog" />
+    
+    <TextView
+        android:id="@+id/reminder_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="6"
+        android:layout_rowSpan="1"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ff33b5e5"
+        android:text="@string/reminder_type" >
+    </TextView> 
+
+     <Spinner
+        android:id="@+id/reminderTypeSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="6"
+        android:layout_rowSpan="1"
+        android:entries="@array/reminderType_array"
+        android:spinnerMode="dialog" />
+    
+
+    <TextView
+        android:id="@+id/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="7"
+        android:layout_rowSpan="1"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ff33b5e5"
+        android:text="@string/priority" >
+    </TextView>   
+
+   <RatingBar
+       android:id="@+id/priorityBar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_column="1"
+       android:layout_columnSpan="1"
+       android:layout_row="7"
+       android:layout_rowSpan="1"
+       android:numStars="3" />
+   
+   <Button 
+       android:id="@+id/btnSave"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_column="0"
+       android:text="@string/save"
+       android:layout_columnSpan="1"
+       android:layout_row="8"
+       android:layout_rowSpan="1"/>
+   
+   <Button 
+       android:id="@+id/btnCancel"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/cancel"
+       android:layout_column="1"
+       android:layout_columnSpan="1"
+       android:layout_row="8"
+       android:layout_rowSpan="1"/>
+
+</GridLayout>

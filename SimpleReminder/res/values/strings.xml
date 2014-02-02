@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Reminder</string>
+    <string name="reminder">Remind Notes</string>
+    <string name="pic_date">DATE</string>
+    <string name="pic_time">TIME</string>
+    <string name="enter_date">Enter Date</string>
+    <string name="enter_time">Enter Time</string>
+    <string name="event_type">EVENT TYPE</string>
+    <string name="reminder_type">REMINDER TYPE</string>
+    <string name="select_number">Select Number</string>
+    <string name="enter_number">Enter Number</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="number">NUMBER</string>
+    <string name="message">MESSAGE</string>
+    <string name="priority">PRIORITY</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="remind_me_in">REMIND ME IN..</string>
+
+    <string-array name="eventType_array">
+        <item>Party</item>
+        <item>Meeting</item>
+        <item>Call</item>
+        <item>SMS</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="reminderType_array">
+        <item>Vibration</item>
+        <item>Notification Sound</item>
+        <item>Screen</item>
+        <item>Snooze</item>
+    </string-array>
+    <string-array name="remind_mein_array">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>60 minutes</item>
+    </string-array>
+
+</resources>
