@@ -10,6 +10,7 @@ import com.dushantha.dao.OperationDAOIMPL;
 import com.dushantha.dto.EventUpdateDTO;
 import com.dushantha.entities.EventEntity;
 import com.dushantha.util.EntityConverter;
+import com.dushantha.util.ReturnData;
 
 public class OperationIMPL implements Operation {
 	private OperationDAO operaionDAO;
@@ -27,7 +28,7 @@ public class OperationIMPL implements Operation {
 	}
 
 	@Override
-	public boolean saveEvent(final Context context,
+	public ReturnData<Long> saveEvent(final Context context,
 			EventUpdateDTO eventUpdateDto) {
 		operaionDAO = new OperationDAOIMPL();
 		return operaionDAO.saveEvent(context,
@@ -43,6 +44,12 @@ public class OperationIMPL implements Operation {
 			eventUpdateDTOs.add(eventUpdateDTO);
 		}
 		return eventUpdateDTOs;
+	}
+
+	@Override
+	public EventUpdateDTO getEvent(Context context, long eventId) {
+		operaionDAO = new OperationDAOIMPL();
+		return new EventUpdateDTO(operaionDAO.getEvent(context, eventId));
 	}
 
 }

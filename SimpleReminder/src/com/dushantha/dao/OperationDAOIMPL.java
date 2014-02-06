@@ -11,15 +11,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dushantha.entities.EventEntity;
+import com.dushantha.util.DomainConstants;
+import com.dushantha.util.ReturnData;
 
 public class OperationDAOIMPL implements OperationDAO {
 
 	private DatabaseHandler databaseHandler;
 
 	@Override
-	public boolean saveEvent(Context context, EventEntity eventEntity) {
+	public ReturnData<Long> saveEvent(Context context, EventEntity eventEntity) {
 		boolean isSaved = false;
-		long eventID;
+		long eventID = DomainConstants.ERROR;
 		databaseHandler = new DatabaseHandler(context);
 		SQLiteDatabase db = databaseHandler.getWritableDatabase();
 		try {
@@ -57,10 +59,12 @@ public class OperationDAOIMPL implements OperationDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			isSaved = false;
+		} finally {
+			db.endTransaction();
+			db.close();
 		}
-		db.endTransaction();
-		db.close();
-		return isSaved;
+
+		return new ReturnData<Long>(isSaved, eventID);
 	}
 
 	@Override
@@ -77,7 +81,28 @@ public class OperationDAOIMPL implements OperationDAO {
 
 	@Override
 	public List<EventEntity> getAllEvents(final Context context) {
-		// TODO Auto-generated method stub
+		return getEvents(context, DomainConstants.ERROR);
+	}
+
+	@Override
+	public EventEntity getEvent(Context context, long eventId) {
+		List<EventEntity> eventList = getEvents(context, eventId);
+
+		// there will be only one event, take that
+		if (eventList != null && eventList.size() == 1) {
+			return eventList.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param context
+	 * @param eventId
+	 * @return the events
+	 */
+	private List<EventEntity> getEvents(Context context, long eventId) {
+
 		List<EventEntity> eventList = new ArrayList<EventEntity>();
 		databaseHandler = new DatabaseHandler(context);
 		SQLiteDatabase db = databaseHandler.getReadableDatabase();
@@ -94,7 +119,13 @@ public class OperationDAOIMPL implements OperationDAO {
 		query.append("FROM event,setting,sms_call \n");
 		query.append("WHERE setting.event_id = event._id \n");
 
-		Cursor cursor = db.rawQuery(query.toString(), null);
+		String[] whereArgs = null;
+		if (eventId != DomainConstants.ERROR) {
+			query.append("AND event._id = ?");
+			whereArgs = new String[] { String.valueOf(eventId) };
+		}
+
+		Cursor cursor = db.rawQuery(query.toString(), whereArgs);
 
 		if (cursor != null) {
 			cursor.moveToFirst();
@@ -128,5 +159,4 @@ public class OperationDAOIMPL implements OperationDAO {
 
 		return eventList;
 	}
-
 }
