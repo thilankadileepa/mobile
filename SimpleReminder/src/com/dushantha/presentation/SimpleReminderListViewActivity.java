@@ -3,19 +3,17 @@ package com.dushantha.presentation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dushantha.business.Operation;
-import com.dushantha.business.OperationIMPL;
-import com.dushantha.dto.EventUpdateDTO;
-import com.dushantha.util.CustomListArrayAdapter;
-import com.example.simplereminder.R;
-
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+
+import com.dushantha.business.Operation;
+import com.dushantha.business.OperationIMPL;
+import com.dushantha.dto.EventUpdateDTO;
+import com.dushantha.util.CustomListArrayAdapter;
+import com.example.simplereminder.R;
 
 public class SimpleReminderListViewActivity extends ListActivity {
 

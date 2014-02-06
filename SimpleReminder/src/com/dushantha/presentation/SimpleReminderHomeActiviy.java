@@ -1,21 +1,16 @@
 package com.dushantha.presentation;
 
 import java.util.Calendar;
-import java.util.List;
 
 import org.joda.time.DateTime;
 
-import com.dushantha.business.Operation;
-import com.dushantha.business.OperationIMPL;
-import com.dushantha.dto.EventUpdateDTO;
-import com.dushantha.util.DateDialogFragment;
-import com.dushantha.util.DomainConstants;
-import com.dushantha.util.DomainConstants.selectedEventType;
-import com.dushantha.util.TimeDialogFragment;
-import com.example.simplereminder.R;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +23,17 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.FragmentTransaction;
-import android.content.Intent;
+
+import com.dushantha.business.Operation;
+import com.dushantha.business.OperationIMPL;
+import com.dushantha.dto.EventUpdateDTO;
+import com.dushantha.service.AlarmReciever;
+import com.dushantha.util.DateDialogFragment;
+import com.dushantha.util.DomainConstants;
+import com.dushantha.util.DomainConstants.selectedEventType;
+import com.dushantha.util.ReturnData;
+import com.dushantha.util.TimeDialogFragment;
+import com.example.simplereminder.R;
 
 public class SimpleReminderHomeActiviy extends Activity {
 
@@ -73,9 +77,15 @@ public class SimpleReminderHomeActiviy extends Activity {
 			@Override
 			public void onClick(View v) {
 				operationBusiness = new OperationIMPL();
-				boolean isSaved = operationBusiness.saveEvent(
-						SimpleReminderHomeActiviy.this, buildEvent());
-				if (isSaved) {
+
+				EventUpdateDTO eventEntity = buildEvent();
+				ReturnData<Long> returnData = operationBusiness.saveEvent(
+						SimpleReminderHomeActiviy.this, eventEntity);
+				if (returnData.isSucsess()) {
+
+					// save the alarm activity
+					scheduleAlarm(returnData.getData(), eventEntity);
+
 					startReminderListActivity();
 				}
 
@@ -185,6 +195,29 @@ public class SimpleReminderHomeActiviy extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	/**
+	 * schedule the alarm at the time of the event creation
+	 * 
+	 * @param eventId
+	 * @param eventEntity
+	 */
+	private void scheduleAlarm(long eventId, EventUpdateDTO eventEntity) {
+		Intent intentAlarm = new Intent(this, AlarmReciever.class);
+
+		// parameters to be passed. only the event id will be sent
+		Bundle bundle = new Bundle();
+		bundle.putLong(DomainConstants.EVENT_ID, eventId);
+		intentAlarm.putExtras(bundle);
+
+		// create the object
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		// set the alarm for particular time
+		alarmManager.set(AlarmManager.RTC_WAKEUP, eventEntity.getDateTime().getMillis(), PendingIntent
+				.getBroadcast(this, 1, intentAlarm,
+						PendingIntent.FLAG_UPDATE_CURRENT));
+
 	}
 
 	private void startReminderListActivity() {

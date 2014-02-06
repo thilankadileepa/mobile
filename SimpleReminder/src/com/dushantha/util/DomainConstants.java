@@ -2,6 +2,9 @@ package com.dushantha.util;
 
 public class DomainConstants {
 
+	/** constant for the errors */
+	public static final int ERROR = -1;
+	
 	public static final String FIVE_MINUTES = "5 minutes";
 	public static final String TEN_MINUTES = "10 minutes";
 	public static final String FIFTEEN_MINUTES = "15 minutes";
@@ -39,4 +42,6 @@ public class DomainConstants {
 		}
 		return 0;
 	}
+	
+	public static final String EVENT_ID = "EVENT_ID";
 }
