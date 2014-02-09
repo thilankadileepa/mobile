@@ -1,10 +1,13 @@
 package com.dushantha.service;
 
+import android.telephony.SmsManager;
+
 import com.dushantha.dto.EventUpdateDTO;
 import com.dushantha.util.DomainConstants;
 
 public class EventFactory {
 
+	NotificationService notificationService = null;
 	private static EventFactory eventFactory = new EventFactory();
 
 	public static EventFactory getInstance() {
@@ -27,6 +30,8 @@ public class EventFactory {
 		public abstract void process(EventUpdateDTO event);
 
 		public void notifyUser(EventUpdateDTO event) {
+			NotificationFactory.getInstance().setNotificationService(
+					notificationService);
 			NotificationFactory.getInstance()
 					.getNotificationProcessor(event.getReminderType())
 					.process(event);
@@ -48,6 +53,12 @@ public class EventFactory {
 		@Override
 		public void process(EventUpdateDTO event) {
 
+			// send the sms
+			String phoneNumberReciver = event.getPhoneNumber();
+			String message = event.getSms();
+			SmsManager sms = SmsManager.getDefault();
+			sms.sendTextMessage(phoneNumberReciver, null, message, null, null);
+
 			notifyUser(event);
 		}
 
@@ -61,6 +72,14 @@ public class EventFactory {
 			notifyUser(event);
 		}
 
+	}
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
 	}
 
 }
