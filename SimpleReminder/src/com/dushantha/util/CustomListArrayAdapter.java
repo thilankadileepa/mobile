@@ -76,7 +76,7 @@ public class CustomListArrayAdapter extends ArrayAdapter<EventUpdateDTO> {
 		holder.reminderDateTimeView.setText(listData.get(position)
 				.getDateTime().toString());
 		holder.reminderTypeView.setText(listData.get(position)
-				.getReminderType());
+				.getEventType());
 		holder.reminderPhoneNumberView.setText(listData.get(position)
 				.getPhoneNumber());
 		holder.reminderPriorityBar.setRating(listData.get(position)

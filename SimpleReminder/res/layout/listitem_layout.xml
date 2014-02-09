@@ -12,9 +12,11 @@
         
         <TextView
             android:id="@+id/eventItemName"
+            android:layout_margin="10dp"
             android:text=""/>
         <TextView
             android:id="@+id/eventItemDate"
+            android:layout_margin="10dp"
             android:text=""/>
     </GridLayout>
     
@@ -26,14 +28,17 @@
         <TextView 
             android:id="@+id/eventItemType"
             android:layout_column="0"
+            android:layout_margin="10dp"
             android:text=""/>
         <TextView
             android:id="@+id/eventItemNumber"
             android:layout_column="1"
+            android:layout_margin="10dp"
             android:text=""/>
         <RatingBar 
             android:id="@+id/eventItemRating"
-            android:layout_column="2"            
+            android:layout_column="2"     
+            android:layout_margin="10dp"       
             style="?android:attr/ratingBarStyle"           
             android:numStars="3"/>
     </GridLayout>

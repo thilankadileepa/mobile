@@ -41,9 +41,14 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.dushantha.presentation.SimpleReminderContactListViewActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.dushantha.presentation.AutoCallActivity"
             android:label="@string/app_name" >
         </activity>
+        
         
         <!-- Register the Alarm Receiver -->
         <receiver android:name="com.dushantha.service.AlarmReciever"/> 

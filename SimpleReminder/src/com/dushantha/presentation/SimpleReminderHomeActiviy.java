@@ -74,7 +74,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 			public void onClick(View v) {
 				Intent k = new Intent(SimpleReminderHomeActiviy.this,
 						SimpleReminderContactListViewActivity.class);
-				startActivity(k);
+				startActivityForResult(k,RESULT_OK);
 
 			}
 		});
@@ -175,6 +175,23 @@ public class SimpleReminderHomeActiviy extends Activity {
 		});
 
 	}
+	
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		 if (resultCode == RESULT_OK) {
+		      if (data != null) {
+		         Bundle b = data.getExtras(); 
+		         String str = b.getString("contactName");
+		         number.setText(str);
+		      }
+		 }
+	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
