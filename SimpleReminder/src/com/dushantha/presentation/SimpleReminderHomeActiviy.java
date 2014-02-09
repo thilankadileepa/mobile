@@ -280,12 +280,12 @@ public class SimpleReminderHomeActiviy extends Activity {
 		eventUpdateDTO.setEventName(reminderName.getText().toString());
 		eventType = (Spinner) findViewById(R.id.eventTypeSelect);
 		eventUpdateDTO.setEventType(eventType.getSelectedItem().toString());
-		String[] dateString = selectDate.getText().toString().split("-");
+		String[] dateString = selectDate.getText().toString().split("/");
 		int month = Integer.parseInt(dateString[0]);
 		int date = Integer.parseInt(dateString[1]);
 		int year = Integer.parseInt(dateString[2]);
 
-		String[] timeString = selectTime.getText().toString().split("-");
+		String[] timeString = selectTime.getText().toString().split(":");
 		int hour = Integer.parseInt(timeString[0]);
 		int minute = Integer.parseInt(timeString[1]);
 
