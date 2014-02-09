@@ -1,16 +1,20 @@
 package com.dushantha.presentation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
 
 import android.app.Activity;
-import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +31,8 @@ import android.widget.TextView;
 import com.dushantha.business.Operation;
 import com.dushantha.business.OperationIMPL;
 import com.dushantha.dto.EventUpdateDTO;
-import com.dushantha.service.AlarmReciever;
+import com.dushantha.dto.PhoneContactInfoDTO;
+import com.dushantha.util.CommonOperation;
 import com.dushantha.util.DateDialogFragment;
 import com.dushantha.util.DomainConstants;
 import com.dushantha.util.DomainConstants.selectedEventType;
@@ -72,20 +77,24 @@ public class SimpleReminderHomeActiviy extends Activity {
 		reminderType = (Spinner) findViewById(R.id.reminderTypeSelect);
 		ratingBar = (RatingBar) findViewById(R.id.priorityBar);
 
+		number.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent k = new Intent(SimpleReminderHomeActiviy.this,
+						SimpleReminderContactListViewActivity.class);
+				startActivity(k);
+
+			}
+		});
 		btnSave.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				operationBusiness = new OperationIMPL();
-
-				EventUpdateDTO eventEntity = buildEvent();
-				ReturnData<Long> returnData = operationBusiness.saveEvent(
-						SimpleReminderHomeActiviy.this, eventEntity);
+		ReturnData<Long> returnData = operationBusiness.saveEvent(
+						SimpleReminderHomeActiviy.this, buildEvent());
 				if (returnData.isSucsess()) {
-
-					// save the alarm activity
-					scheduleAlarm(returnData.getData(), eventEntity);
-
 					startReminderListActivity();
 				}
 
@@ -197,29 +206,6 @@ public class SimpleReminderHomeActiviy extends Activity {
 		}
 	}
 
-	/**
-	 * schedule the alarm at the time of the event creation
-	 * 
-	 * @param eventId
-	 * @param eventEntity
-	 */
-	private void scheduleAlarm(long eventId, EventUpdateDTO eventEntity) {
-		Intent intentAlarm = new Intent(this, AlarmReciever.class);
-
-		// parameters to be passed. only the event id will be sent
-		Bundle bundle = new Bundle();
-		bundle.putLong(DomainConstants.EVENT_ID, eventId);
-		intentAlarm.putExtras(bundle);
-
-		// create the object
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		// set the alarm for particular time
-		alarmManager.set(AlarmManager.RTC_WAKEUP, eventEntity.getDateTime().getMillis(), PendingIntent
-				.getBroadcast(this, 1, intentAlarm,
-						PendingIntent.FLAG_UPDATE_CURRENT));
-
-	}
-
 	private void startReminderListActivity() {
 		Intent k = new Intent(SimpleReminderHomeActiviy.this,
 				SimpleReminderListViewActivity.class);
@@ -233,8 +219,8 @@ public class SimpleReminderHomeActiviy extends Activity {
 		dateFrag = DateDialogFragment.newInstance(this,
 				new DateDialogFragmentListener() {
 					public void updateChangedDate(int year, int month, int day) {
-						selectDate.setText(String.valueOf(month + 1) + "-"
-								+ String.valueOf(day) + "-"
+						selectDate.setText(String.valueOf(month + 1) + "/"
+								+ String.valueOf(day) + "/"
 								+ String.valueOf(year));
 						now.set(year, month, day);
 					}
@@ -251,7 +237,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 				new TimeDialogFragmentListener() {
 					public void updateChangedTime(int hourOfDay, int minute) {
 						// TODO Auto-generated method stub
-						selectTime.setText(String.valueOf(hourOfDay) + "-"
+						selectTime.setText(String.valueOf(hourOfDay) + ":"
 								+ String.valueOf(minute));
 						now.set(Calendar.HOUR_OF_DAY, hourOfDay);
 						now.set(Calendar.MINUTE, minute);
@@ -335,4 +321,5 @@ public class SimpleReminderHomeActiviy extends Activity {
 		eventUpdateDTO.setPriority(ratingBar.getRating());
 		return eventUpdateDTO;
 	}
+
 }
