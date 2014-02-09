@@ -1,20 +1,13 @@
 package com.dushantha.presentation;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,8 +24,6 @@ import android.widget.TextView;
 import com.dushantha.business.Operation;
 import com.dushantha.business.OperationIMPL;
 import com.dushantha.dto.EventUpdateDTO;
-import com.dushantha.dto.PhoneContactInfoDTO;
-import com.dushantha.util.CommonOperation;
 import com.dushantha.util.DateDialogFragment;
 import com.dushantha.util.DomainConstants;
 import com.dushantha.util.DomainConstants.selectedEventType;
@@ -92,7 +83,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 			@Override
 			public void onClick(View v) {
 				operationBusiness = new OperationIMPL();
-		ReturnData<Long> returnData = operationBusiness.saveEvent(
+				ReturnData<Long> returnData = operationBusiness.saveEvent(
 						SimpleReminderHomeActiviy.this, buildEvent());
 				if (returnData.isSucsess()) {
 					startReminderListActivity();
