@@ -5,6 +5,8 @@ import com.dushantha.util.DomainConstants;
 
 public class NotificationFactory {
 
+	NotificationService notificationService = null;
+
 	private static NotificationFactory notificationFactory = new NotificationFactory();
 
 	public static NotificationFactory getInstance() {
@@ -26,13 +28,26 @@ public class NotificationFactory {
 
 	public abstract class NotificationProcessor {
 		public abstract void process(EventUpdateDTO event);
+
+		protected void vibrate() {
+			notificationService.vibrate();
+		}
+
+		protected void notifyUser(EventUpdateDTO event) {
+			notificationService.notifyUser(event);
+		}
+
+		protected void sound() {
+			notificationService.playSound();
+		}
 	}
 
 	public class VibrateNotificationProcessor extends NotificationProcessor {
 
 		@Override
 		public void process(EventUpdateDTO event) {
-
+			vibrate();
+			notifyUser(event);
 		}
 
 	}
@@ -41,7 +56,8 @@ public class NotificationFactory {
 
 		@Override
 		public void process(EventUpdateDTO event) {
-
+			sound();
+			notifyUser(event);
 		}
 
 	}
@@ -50,8 +66,17 @@ public class NotificationFactory {
 
 		@Override
 		public void process(EventUpdateDTO event) {
-
+			notifyUser(event);
 		}
 
 	}
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
+
 }
