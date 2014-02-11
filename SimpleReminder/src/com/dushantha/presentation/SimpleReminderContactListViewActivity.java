@@ -1,6 +1,7 @@
 package com.dushantha.presentation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +18,7 @@ import android.widget.ListView;
 
 
 public class SimpleReminderContactListViewActivity extends ListActivity {
-	private List<PhoneContactInfoDTO> dataList;
-	private String contactName;
+	private List<PhoneContactInfoDTO> dataList;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class SimpleReminderContactListViewActivity extends ListActivity {
 			contactList.add(cont);
 		}
 		dataList=contactList;
+		Collections.sort(contactList);
 		setListAdapter(new CustomContactListAdapter(this, contactList));
 		
 		
@@ -42,9 +43,9 @@ public class SimpleReminderContactListViewActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		PhoneContactInfoDTO selected = dataList.get(position);	
-		contactName = selected.getContactName();
+		
 		Intent data = new Intent(Intent.ACTION_SEND);
-		data.putExtra("contactName",contactName);
+		data.putExtra("contactNumber",selected.getContactNumber());
 		setResult(1, data);
 		this.finish();
 	}

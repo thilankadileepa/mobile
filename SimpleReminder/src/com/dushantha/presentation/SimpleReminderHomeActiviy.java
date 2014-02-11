@@ -94,11 +94,11 @@ public class SimpleReminderHomeActiviy extends Activity {
 		});
 
 		now = Calendar.getInstance();
-		selectDate.setText(String.valueOf(now.get(Calendar.MONTH) + 1) + "-"
-				+ String.valueOf(now.get(Calendar.DAY_OF_MONTH)) + "-"
+		selectDate.setText(String.valueOf(now.get(Calendar.MONTH) + 1) + "/"
+				+ String.valueOf(now.get(Calendar.DAY_OF_MONTH)) + "/"
 				+ String.valueOf(now.get(Calendar.YEAR)));
 
-		selectTime.setText(String.valueOf(now.get(Calendar.HOUR_OF_DAY)) + "-"
+		selectTime.setText(String.valueOf(now.get(Calendar.HOUR_OF_DAY)) + ":"
 				+ String.valueOf(now.get(Calendar.MINUTE)));
 
 		selectDate.setOnClickListener(new View.OnClickListener() {
@@ -282,7 +282,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 		 if (resultCode == 1) {
 		      if (data != null) {
 		         Bundle b = data.getExtras(); 
-		         String str = b.getString("contactName");
+		         String str = b.getString("contactNumber");
 		         number.setText(str);
 		      }
 		 }

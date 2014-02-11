@@ -1,4 +1,5 @@
 package com.dushantha.util;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public abstract class CommonOperation {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.d("END", "Got all Contacts");
+		Log.d("END", "Got all Contacts");		
 		return arrContacts;
 	}
 
