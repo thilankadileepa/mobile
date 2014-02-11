@@ -74,7 +74,8 @@ public class SimpleReminderHomeActiviy extends Activity {
 			public void onClick(View v) {
 				Intent k = new Intent(SimpleReminderHomeActiviy.this,
 						SimpleReminderContactListViewActivity.class);
-				startActivityForResult(k,RESULT_OK);
+				SimpleReminderHomeActiviy.this.startActivityForResult(k,RESULT_OK);
+				
 
 			}
 		});
@@ -176,23 +177,6 @@ public class SimpleReminderHomeActiviy extends Activity {
 
 	}
 	
-	
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		 if (resultCode == RESULT_OK) {
-		      if (data != null) {
-		         Bundle b = data.getExtras(); 
-		         String str = b.getString("contactName");
-		         number.setText(str);
-		      }
-		 }
-	}
-
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -289,6 +273,19 @@ public class SimpleReminderHomeActiviy extends Activity {
 			message.setVisibility(View.GONE);
 			enterMessage.setVisibility(View.GONE);
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		 if (resultCode == RESULT_OK) {
+		      if (data != null) {
+		         Bundle b = data.getExtras(); 
+		         String str = b.getString("contactName");
+		         number.setText(str);
+		      }
+		 }
 	}
 
 	private EventUpdateDTO buildEvent() {

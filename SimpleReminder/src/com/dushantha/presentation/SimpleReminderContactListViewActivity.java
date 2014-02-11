@@ -13,13 +13,12 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
+
 
 public class SimpleReminderContactListViewActivity extends ListActivity {
 	private List<PhoneContactInfoDTO> dataList;
+	private String contactName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +41,20 @@ public class SimpleReminderContactListViewActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
-		PhoneContactInfoDTO selected = dataList.get(position);
-		Intent data = new Intent(Intent.ACTION_SEND);
-		data.putExtra("contactName",selected.getContactName());
-		setResult(RESULT_OK, data);
+		PhoneContactInfoDTO selected = dataList.get(position);	
+		contactName = selected.getContactName();
 		this.finish();
 	}
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		Intent data = new Intent(Intent.ACTION_SEND);
+		data.putExtra("contactName",contactName);
+		setResult(RESULT_OK, data);
+		super.finish();
+	}
+	
+	
 
 }
