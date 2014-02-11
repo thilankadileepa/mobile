@@ -74,7 +74,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 			public void onClick(View v) {
 				Intent k = new Intent(SimpleReminderHomeActiviy.this,
 						SimpleReminderContactListViewActivity.class);
-				SimpleReminderHomeActiviy.this.startActivityForResult(k,RESULT_OK);
+				SimpleReminderHomeActiviy.this.startActivityForResult(k,1);
 				
 
 			}
@@ -279,7 +279,7 @@ public class SimpleReminderHomeActiviy extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		 if (resultCode == RESULT_OK) {
+		 if (resultCode == 1) {
 		      if (data != null) {
 		         Bundle b = data.getExtras(); 
 		         String str = b.getString("contactName");

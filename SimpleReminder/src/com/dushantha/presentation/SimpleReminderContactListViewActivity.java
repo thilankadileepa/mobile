@@ -43,15 +43,16 @@ public class SimpleReminderContactListViewActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		PhoneContactInfoDTO selected = dataList.get(position);	
 		contactName = selected.getContactName();
+		Intent data = new Intent(Intent.ACTION_SEND);
+		data.putExtra("contactName",contactName);
+		setResult(1, data);
 		this.finish();
 	}
 
 	@Override
 	public void finish() {
 		// TODO Auto-generated method stub
-		Intent data = new Intent(Intent.ACTION_SEND);
-		data.putExtra("contactName",contactName);
-		setResult(RESULT_OK, data);
+		
 		super.finish();
 	}
 	
