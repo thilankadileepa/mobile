@@ -8,33 +8,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ListView;
 
 import com.dushantha.business.Operation;
 import com.dushantha.business.OperationIMPL;
 import com.dushantha.dto.EventUpdateDTO;
 import com.dushantha.util.CustomListArrayAdapter;
+import com.dushantha.util.ReturnData;
 import com.example.simplereminder.R;
 
 /**
  * @author Dushantha
- *
+ * 
  */
 public class SimpleReminderListViewActivity extends ListActivity {
 
 	private Operation operation;
+	private ListView listView;
+	private List<EventUpdateDTO> dataList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reminder_list);
+		loadEventList();
+	}
+
+	private void loadEventList() {
 		operation = new OperationIMPL();
-		// ListView listView = (ListView)findViewById(R.id.eventListView);
 		List<EventUpdateDTO> listData = new ArrayList<EventUpdateDTO>();
 		listData = operation.getAllEvents(this);
-		// listView.setAdapter(new CustomListArrayAdapter(this, listData));
+		dataList = listData;
 		setListAdapter(new CustomListArrayAdapter(this, listData));
-
 	}
 
 	@Override
@@ -62,6 +71,19 @@ public class SimpleReminderListViewActivity extends ListActivity {
 		Intent k = new Intent(SimpleReminderListViewActivity.this,
 				SimpleReminderHomeActiviy.class);
 		startActivity(k);
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		EventUpdateDTO eventUpdateDTO = dataList.get(position);
+		ReturnData<Boolean> result = operation.deleteEvent(
+				SimpleReminderListViewActivity.this,
+				eventUpdateDTO.getEventID());
+		if (result.getData()) {
+			loadEventList();
+		}
 	}
 
 }

@@ -18,7 +18,7 @@ public interface OperationDAO {
 
 	public boolean editEvent(Context context, EventEntity eventEntity);
 
-	public boolean deleteEvent(Context context, Integer eventId);
+	public ReturnData<Boolean> deleteEvent(Context context, Integer eventId);
 
 	public List<EventEntity> getAllEvents(final Context context);
 	

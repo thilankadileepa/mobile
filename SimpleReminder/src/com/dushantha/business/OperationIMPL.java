@@ -22,9 +22,10 @@ public class OperationIMPL implements Operation {
 	}
 
 	@Override
-	public boolean deleteEvent(Integer eventId) {
+	public ReturnData<Boolean> deleteEvent(final Context context,Integer eventId) {
 		// TODO Auto-generated method stub
-		return false;
+		operaionDAO = new OperationDAOIMPL();
+		return operaionDAO.deleteEvent(context, eventId);
 	}
 
 	@Override

@@ -74,9 +74,40 @@ public class OperationDAOIMPL implements OperationDAO {
 	}
 
 	@Override
-	public boolean deleteEvent(Context context, Integer eventId) {
+	public ReturnData<Boolean> deleteEvent(Context context, Integer eventId) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean isDeleted = false;
+		databaseHandler = new DatabaseHandler(context);
+		SQLiteDatabase db = databaseHandler.getWritableDatabase();
+		try {
+			db.beginTransaction();
+			StringBuilder queryOne = new StringBuilder();
+			queryOne.append("DELETE FROM setting \n");
+			queryOne.append("WHERE event_id = '" + eventId + "';");
+
+			StringBuilder queryTwo = new StringBuilder();
+			queryTwo.append("DELETE FROM sms_call \n");
+			queryTwo.append("WHERE event_id = '" + eventId + "';");
+
+			StringBuilder queryThree = new StringBuilder();
+			queryThree.append("DELETE FROM event \n");
+			queryThree.append("WHERE _id = '" + eventId + "';");
+
+			db.execSQL(queryOne.toString());
+			db.execSQL(queryTwo.toString());
+			db.execSQL(queryThree.toString());
+
+			db.setTransactionSuccessful();
+			isDeleted = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			isDeleted = false;
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
+
+		return new ReturnData<Boolean>(isDeleted, isDeleted);
 	}
 
 	@Override

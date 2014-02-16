@@ -13,7 +13,7 @@ public interface Operation {
 
 	public boolean editEvent(EventUpdateDTO eventUpdateDTO);
 
-	public boolean deleteEvent(Integer eventId);
+	public ReturnData<Boolean> deleteEvent(final Context context,Integer eventId);
 
 	public List<EventUpdateDTO> getAllEvents(final Context context);
 	

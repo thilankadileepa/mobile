@@ -82,7 +82,7 @@ public class CustomListArrayAdapter extends ArrayAdapter<EventUpdateDTO> {
 		holder.reminderPriorityBar.setRating(listData.get(position)
 				.getPriority());
 		holder.reminderPriorityBar.setEnabled(false);
-		holder.reminderPriorityBar.setMinimumHeight(20);
+		holder.reminderPriorityBar.setFocusable(false);
 		
 		return convertView;
 	}
