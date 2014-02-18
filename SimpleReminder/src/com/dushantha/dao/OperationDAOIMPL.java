@@ -138,21 +138,23 @@ public class OperationDAOIMPL implements OperationDAO {
 		databaseHandler = new DatabaseHandler(context);
 		SQLiteDatabase db = databaseHandler.getReadableDatabase();
 		StringBuilder query = new StringBuilder("");
-		query.append("SELECT event._id AS EventID, \n");// 0
-		query.append(" event.event_name AS EventName, \n");// 1
-		query.append(" event.dateTime AS DateTime, \n");// 2
-		query.append(" setting.event_type AS EventType, \n");// 3
-		query.append(" setting.reminder_type AS ReminderType, \n");// 4
-		query.append(" setting.priority AS Priority, \n");// 5
-		query.append(" setting.remind_me_in AS RemindMeIn, \n");// 6
-		query.append(" sms_call.number AS Number, \n");// 7
-		query.append(" sms_call.sms AS Sms \n");// 8
-		query.append("FROM event,setting,sms_call \n");
-		query.append("WHERE setting.event_id = event._id \n");
+
+		query.append("SELECT e._id AS EventID, \n");// 0
+		query.append(" e.event_name AS EventName, \n");// 1
+		query.append(" e.dateTime AS DateTime, \n");// 2
+		query.append(" s.event_type AS EventType, \n");// 3
+		query.append(" s.reminder_type AS ReminderType, \n");// 4
+		query.append(" s.priority AS Priority, \n");// 5
+		query.append(" s.remind_me_in AS RemindMeIn, \n");// 6
+		query.append(" sc.number AS Number, \n");// 7
+		query.append(" sc.sms AS Sms \n");// 8
+		query.append("FROM event e JOIN setting s \n");
+		query.append("ON e._id=s.event_Id LEFT JOIN sms_call sc \n");
+		query.append("ON sc.event_Id = e._id");
 
 		String[] whereArgs = null;
 		if (eventId != DomainConstants.ERROR) {
-			query.append("AND event._id = ?");
+			query.append("AND e._id = ?");
 			whereArgs = new String[] { String.valueOf(eventId) };
 		}
 
@@ -178,11 +180,14 @@ public class OperationDAOIMPL implements OperationDAO {
 							(float) cursor.getDouble(5));
 					eventEntity.getSettingsEntity().setRemindMeIn(
 							cursor.getInt(6));
-
-					eventEntity.getSmsCallEntity().setEventId(cursor.getInt(0));
-					eventEntity.getSmsCallEntity().setNumber(
-							cursor.getString(7));
-					eventEntity.getSmsCallEntity().setSms(cursor.getString(8));
+					if (cursor.getString(7) != null) {
+						eventEntity.getSmsCallEntity().setEventId(
+								cursor.getInt(0));
+						eventEntity.getSmsCallEntity().setNumber(
+								cursor.getString(7));
+						eventEntity.getSmsCallEntity().setSms(
+								cursor.getString(8));
+					}
 					eventList.add(eventEntity);
 				}
 			} while (cursor.moveToNext());
