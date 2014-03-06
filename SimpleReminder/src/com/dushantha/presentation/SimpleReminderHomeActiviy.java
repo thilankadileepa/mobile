@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,7 +42,8 @@ public class SimpleReminderHomeActiviy extends Activity {
 	EditText selectTime;
 	Calendar now;
 	Spinner spinner;
-	Button btnSave;
+	ImageButton btnSave;
+	ImageButton btnCancel;
 	EventUpdateDTO eventUpdateDTO;
 	Operation operationBusiness;
 	private EditText reminderName;
@@ -57,7 +59,8 @@ public class SimpleReminderHomeActiviy extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.make_reminder);
 
-		btnSave = (Button) findViewById(R.id.btnSave);
+		btnSave = (ImageButton) findViewById(R.id.imgBtnSave);
+		btnCancel = (ImageButton) findViewById(R.id.imgBtnCancel);
 		selectDate = (EditText) findViewById(R.id.lableDate);
 		selectTime = (EditText) findViewById(R.id.lableTime);
 		reminderName = (EditText) findViewById(R.id.name);
@@ -93,6 +96,16 @@ public class SimpleReminderHomeActiviy extends Activity {
 				} else {
 					reminderName.setError("Reminder Name is Required");
 				}
+			}
+		});
+		
+		btnCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+				
 			}
 		});
 

@@ -13,12 +13,16 @@ import com.example.simplereminder.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
 public class SimpleReminderContactListViewActivity extends ListActivity {
 	private List<PhoneContactInfoDTO> dataList;	
+	private EditText searchText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,30 @@ public class SimpleReminderContactListViewActivity extends ListActivity {
 		dataList=contactList;
 		Collections.sort(contactList);
 		setListAdapter(new CustomContactListAdapter(this, contactList));
+		searchText = (EditText)findViewById(R.id.txtSearchContacts);		
+		searchText.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				CustomContactListAdapter adapter = (CustomContactListAdapter)getListAdapter();
+				adapter.getFilter().filter(s.toString());
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		
 	}

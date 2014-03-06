@@ -2,11 +2,14 @@ package com.dushantha.dto;
 
 import org.joda.time.DateTime;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.dushantha.entities.EventEntity;
 
 
 
-public class EventUpdateDTO {
+public class EventUpdateDTO implements Parcelable {
 
 	private Integer eventID;
 	private Integer settingID;
@@ -132,6 +135,18 @@ public class EventUpdateDTO {
 	public String toString() {
 		return "EventUpdateDTO [eventID=" + eventID + ", eventName="
 				+ eventName + ", eventType=" + eventType + "]";
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

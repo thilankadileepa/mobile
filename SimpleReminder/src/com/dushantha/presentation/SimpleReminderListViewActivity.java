@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,12 +79,18 @@ public class SimpleReminderListViewActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		EventUpdateDTO eventUpdateDTO = dataList.get(position);
-		ReturnData<Boolean> result = operation.deleteEvent(
-				SimpleReminderListViewActivity.this,
-				eventUpdateDTO.getEventID());
-		if (result.getData()) {
-			loadEventList();
-		}
+		Intent data = new Intent(SimpleReminderListViewActivity.this, SimpleReminderHomeActiviy.class);
+		data.putExtra("event", (Parcelable)eventUpdateDTO);
+		startActivity(data);	
+		
 	}
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+	}
+	
+	
 
 }

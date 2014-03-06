@@ -17,6 +17,7 @@
     <string name="priority">PRIORITY</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="search">Search</string>
     <string name="remind_me_in">REMIND ME IN..</string>
 
     <string-array name="eventType_array">
